@@ -19,10 +19,34 @@ regles.append("Pour plus de simplicité l'As vaut 1")
 couleur = ('Pique', 'Trefle', 'Carreau', 'Coeur')
 valeur = ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '10', '10', '10')
 
-paquet_tri = []
 paquet = []
+paquet_valeur = []
 main_joueur = []
 main_croupier = []
+solde = 500
+
+
+def lamise(mise,solde):
+    while mise < 50 or mise > solde:
+        if mise < 50 :
+            mise = int(input("le croupier n'accepete pas votre mise, car la mise est inferieur a 50"))
+        else:
+            mise = int(input("le croupier n'accepete pas votre mise, car vous n'avez pas assez"))
+    return mise
+
+
+def double(pair,solde):
+    if pair == 0:
+        print("vous n'avez pas choisi de miser pair, le croupier va commencer")
+        return pair
+    else: 
+        while pair > solde or pair < 10:
+            if pair > solde :
+                pair = int(input("le croupier n'accepete pas votre mise, car vous n'avez pas assez"))
+            else :
+                pair = int(input("le croupier n'accepete pas votre mise, car la mise est inferieur a 10"))
+        return pair
+
 
 
 
@@ -31,41 +55,41 @@ def initialisation(paquet):
         for val in range(13):
             nouvelle_carte = (valeur[val], couleur[col])
             paquet.append(nouvelle_carte) 
-    return paquet 
-initialisation(paquet)
+    return paquet
+
 
 def trier(paquet):
     shuffle(paquet)
     return paquet
-trier(paquet)
-print(paquet)
+
 
 
 def joueur(paquet):
     val_joueur = 0
-    t = 0
+    c = 0
     paquet_joueur = paquet
     jouer = True
-    i = randint(0,len(paquet_joueur))
-    main_joueur.append(paquet_joueur[i])
-    m = main_joueur[t]
+    main_joueur.append(paquet_joueur[c])
+    m = main_joueur[c]
     int_m = int(m[0])
     val_joueur = val_joueur + int_m
-    t = 1
+    c = 1
     while jouer is True and val_joueur<=21:
-        i = randint(0,len(paquet_joueur))
-        main_joueur.append(paquet_joueur[i])
-        m = main_joueur[t]
+        main_joueur.append(paquet_joueur[c])
+        m = main_joueur[c]
         int_m = int(m[0])
         val_joueur = val_joueur + int_m
         print(main_joueur,val_joueur)
-        print(i)
-        t = t+1
-        del(paquet_joueur[i])
+        c = c+1
+        del(paquet_joueur[c])
         if val_joueur >21 :
             tirage = False
             print("c'est perdu !")
-            
+            return val_joueur
+        elif val_joueur >21 :
+            tirage = False
+            print("Vous avez 21")
+            return val_joueur
         else:
             tirage = int(input("tirer ?, si oui taper 1, sinon 0"))
             if tirage == 1:
@@ -76,16 +100,17 @@ def joueur(paquet):
                 jouer = False
                 print("vous avez donc :",val_joueur," le croupier pour vous battre doit au moins vous egaler")
                 sleep(2)
-    return val_joueur
-joueur(paquet)
-val_joueur = 17
+                return val_joueur
+
+
 
 def croupier(paquet,val_joueur):
     jouer = True
     if val_joueur > 21:
         jouer = False
-        victoire = croupier
-        return victoire
+        victoire = "lui"
+        val_croupier = 0
+        return victoire,val_croupier
     else :
         t = 0
         val_croupier = 0
@@ -110,32 +135,28 @@ def croupier(paquet,val_joueur):
             if val_croupier > 21 :
                 print("le croupier s'arrete")
                 victoire = "moi"
-                return victoire
+                return victoire,val_croupier
             elif val_croupier == 21 :
                 print("le croupier s'arrete")
                 victoire = "lui"
-                return victoire
+                return victoire,val_croupier
             elif val_croupier == val_joueur :
                 print("le croupier s'arrete")
                 victoire = "lui"
-                return victoire
-            elif val_croupier > val_joueur and val_croupier <=21 :
+                return victoire,val_croupier
+            elif val_croupier > val_joueur and val_croupier < 21 :
                 print("le croupier s'arrete")
                 victoire = "lui"
-                return victoire
+                return victoire,val_croupier
+
             
-        return val_croupier, victoire
-        
-croupier(paquet,val_joueur)
-            
-def resultat(victoire,val_croupier,val_joueur):
+def resultat(victoire,val_croupier,val_joueur,solde,mise):
     print("pour rappel, vous avez un total de :",val_joueur,"le croupier quand a lui a :",val_croupier)
     if victoire == "lui":
         print("victoire du croupier")
+        solde = solde - mise
+        print("votre solde estd de :",solde)
     else :
         print("vous avez gagnez")
-            
-val_joueur = 17
-val_croupier = 21
-victoire = "lui"
-resultat(victoire,val_croupier,val_joueur)
+        print("votre solde estd de :",solde)
+ 
