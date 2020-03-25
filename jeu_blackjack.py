@@ -19,7 +19,7 @@ while menu :
         print()
         print("1/ voulez vous que le croupier vous explique les regles ?")
         print()
-        print ("2/ jouer")
+        print ("2/ jouer     solde :",solde)
         print()
         print ("3/ Quitter")
         choix = int(input("Faites votre choix :"))
@@ -45,7 +45,6 @@ while menu :
             victoire,val_croupier,paquet = croupier(paquet,val_joueur)
             solde=resultat(victoire,val_croupier,val_joueur,solde,mise)
             solde=parid(pari,pari2,pair,solde)
-            print(solde)
             if solde >= 50:
                 jeu = True
             else :
