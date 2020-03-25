@@ -52,7 +52,7 @@ def double(pair,solde):
         print("vous n'avez pas choisi de miser pair, le croupier va commencer")
         return pair
     else: 
-        while pair > solde  or solde < 10 and pair>0:
+        while pair > solde  or pair < 10 and pair>0:
             if pair > solde :
                 pair = int(input("le croupier n'accepete pas votre mise, car vous n'avez pas assez"))
             elif pair < 10 and pair != 0:
