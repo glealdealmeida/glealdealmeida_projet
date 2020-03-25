@@ -17,7 +17,22 @@ regles.append("enfin le jeu s'arrete lorsque vous n'avez plus d'argent ou que vo
 regles.append("Pour plus de simplicité l'As vaut 1")
 
 couleur = ('Pique', 'Trefle', 'Carreau', 'Coeur')
-valeur = ('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '10', '10', '10')
+valeur = ('As', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Valet', 'Dame', 'Roi')
+cartes2valeus = {
+    "As": 1,
+    "2": 2,
+    '3':3,
+    '4':4, 
+    '5':5, 
+    '6':6, 
+    '7':7, 
+    '8':8, 
+    '9':9, 
+    '10':10, 
+    'Valet':10, 
+    'Dame':10, 
+    'Roi':10
+     }
 
 paquet = []
 solde = 500
@@ -58,7 +73,7 @@ def initialisation(paquet):
     return paquet
 
 
-def trier(paquet):
+def melanger(paquet):
     print("le croupier melange le jeu de carte")
     sleep(2)
     shuffle(paquet)
@@ -75,23 +90,22 @@ def joueur(paquet):
     jouer = True
     main_joueur.append(paquet_joueur[c])
     m = main_joueur[c]
-    int_m = int(m[0])
-    val_joueur = val_joueur + int_m
-    pari = int_m
+    val = cartes2valeus[m[0]]
+    val_joueur = val_joueur + val
+    pari = m[0]
     del(paquet[c])
     c = 1
     main_joueur2.append(paquet_joueur[c])
     m = main_joueur2[0]
-    int_m = int(m[0])
-    pari2=int_m
+    pari2=m[0]
+    print(pari,pari2)
     c = 1
-    
     sleep(2)
     while jouer is True and val_joueur<=21:
         main_joueur.append(paquet_joueur[c])
         m = main_joueur[c]
-        int_m = int(m[0])
-        val_joueur = val_joueur + int_m
+        val = cartes2valeus[m[0]]
+        val_joueur = val_joueur + val
         print(main_joueur,val_joueur)
         del(paquet_joueur[c])
         del(paquet[c])
@@ -146,16 +160,16 @@ def croupier(paquet,val_joueur):
         main_croupier.append(paquet_croupier[c])
         m = main_croupier[c]
         del(paquet[c])
-        int_m = int(m[0])
-        val_croupier = val_croupier + int_m
+        val = cartes2valeus[m[0]]
+        val_croupier = val_croupier + val
         c = 1
         sleep(2)
         while  jouer is True:
             print("le croupier joue")
             main_croupier.append(paquet_croupier[c])
             m = main_croupier[c]
-            int_m = int(m[0])
-            val_croupier = val_croupier + int_m
+            val = cartes2valeus[m[0]]
+            val_croupier = val_croupier + val
             print("le croupier a tire :",main_croupier,"il a donc un total de :",val_croupier)
             del(paquet_croupier[c])
             del(paquet[c])
@@ -163,7 +177,7 @@ def croupier(paquet,val_joueur):
             sleep(2)
             if val_croupier > 21 :
                 print("le croupier s'arrete")
-                victoire = "moi"
+                victoire = "joueur"
                 del(c)
                 del(main_croupier)
                 del(paquet_croupier)
