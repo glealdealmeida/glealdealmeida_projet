@@ -5,7 +5,7 @@ Created on Mon Mar 23 11:53:51 2020
 
 @author: guillaume
 """
-from programme import regles,lamise,double,initialisation,trier,joueur,croupier,resultat,parid
+from programme import regles,lamise,double,initialisation,melanger,joueur,croupier,resultat,parid
 from time import sleep
 paquet = []
 solde = 500
@@ -40,7 +40,7 @@ while menu :
             solde = solde - mise
             pair = int(input("voulez vous miser 'paire' ? si oui entrez la mise (min 10) sinon entrez 0"))
             pair = double(pair,solde)
-            paquet=trier(paquet)
+            paquet=melanger(paquet)
             val_joueur,pari,pari2,paquet = joueur(paquet)
             victoire,val_croupier,paquet = croupier(paquet,val_joueur)
             solde=resultat(victoire,val_croupier,val_joueur,solde,mise)
