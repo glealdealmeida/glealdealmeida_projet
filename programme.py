@@ -98,7 +98,6 @@ def joueur(paquet):
     main_joueur2.append(paquet_joueur[c])
     m = main_joueur2[0]
     pari2=m[0]
-    print(pari,pari2)
     c = 1
     sleep(2)
     while jouer is True and val_joueur<=21:
