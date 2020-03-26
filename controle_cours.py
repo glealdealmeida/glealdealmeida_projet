@@ -125,6 +125,7 @@ Tout est Ã  faire en pur python respectez bien le nommage des variables
     >>> ville_pays['Berlin'].visa
     False
     
+    
 """
 
 
