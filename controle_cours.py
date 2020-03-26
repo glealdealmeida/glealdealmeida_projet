@@ -1,4 +1,3 @@
-
 """
 ContrÃ´le de connaissances
 Tout est Ã  faire en pur python respectez bien le nommage des variables
@@ -128,26 +127,7 @@ Tout est Ã  faire en pur python respectez bien le nommage des variables
     
 """
 
-def aller_a_paris(input_call=input):
-    entre=input("paris")
-    while entre != "paris":
-        entre = input_call("paris")
-    
 
-    # quelque part dans le code de cette fonction: saisie = input_call('Question ')
-    # en fonction de saisie on continue a demander ou on renvoie 'Paris'
-    # Au lieu d'utiliser input comme en cours vous appelez input_call
-    # par dÃ©faut elle vaut input donc vous pouvez appeller
-    # aller_a_paris() pour tester a la main
-    while True:
-        return 0, 'Nulle Part'
-      
-if __name__ == "__main__":
-    import doctest
-    if True:
-        doctest.testmod(verbose=True, optionflags=512)
-    else:
-        doctest.testmod(verbose=True)
 
 #Question 1
 def sup21 (n) :
@@ -155,38 +135,75 @@ def sup21 (n) :
         return True
     else : 
         return False
+sup21(22)
 
 #Question 2
 def pair(liste):
-    liste2 = []
-    for key in liste:
-        if key%0:
-            liste2.append(key)
-            print("les elements pair de la liste :",liste2)
+    return [k for k in liste if k%2==0]
+            
+liste =[1,2,3,4,5,6]
+pair(liste)
+
 #Question 3
 def ajout4(liste):
-    liste.append(4)
-    return liste
+    return liste+[4]
+ajout4([])
+ajout4([1,2,4])
+li = [1,2,3]
+_ = ajout4(li)
+li
 
 #Question 4
 def to_strings(dictionnaire):
-    for k,v in dictionnaire.items():
-        print('clé:{}-valeur:{}'.format(k,v))
+    return [str(k)+":"+str(v) for k,v in zip(dictionnaire.keys(),dictionnaire.values())]
+
+to_strings({1:2})
+to_strings({})
+to_strings({1:2,3:4})
       
 #Question 5
 def extremites(liste):
-    premiers = []
-    derniers = []
-    premiers.append(liste[:2])
-    derniers.append(liste[-2])
-    return premiers,derniers
+    return liste[:2]+liste[-2]
+
+extremites(['a', 'b', 'c', 'd', 'e'])
+
+#Question 6
+class Mot:
+    def __init__(self, mot):
+        self.mot = mot
+
+    def comptelettre(self, l):
+        return self.mot.count(l.lower())+ self.mot.count(l.upper())
+
+mot = Mot('Bonjour')
+mot.mot
+mot.comptelettre('o')
+mot.comptelettre('B') == mot.comptelettre('b') == 1
 
 #Question 7
 def tri_et_inverse(liste):
-    tri=sorted(liste)
-    inverse=sorted(liste,reverse=True)
-    return tri,inverse
+    return (sorted(liste),list(reversed(liste)))
+maliste = [4,7,6]
+tri_et_inverse(maliste)
+maliste == [4,7,6]
 
+#Question 8
+class fake_input:
+    def __init__(self, saisies):
+         self._iter = iter(saisies)
+         
+    def __call__(self, *args, **kwargs):
+        return next(self._iter)
+def aller_a_paris(input_call=input):
+    entre = ''
+    n = 0
+    while entre.lower() != 'paris':
+        entre = input_call('Entrez le mot paris :')
+        n = n + 1
+    return n,'Paris'
+    
+list(aller_a_paris(input_call=fake_input(['Barcelone', "Madrid", "Paris"]))) 
+aller_a_paris(input_call=fake_input(['Barcelone', "paris"]))
 
 #Question 9
 ville_nom_pays = {
@@ -195,12 +212,34 @@ ville_nom_pays = {
         'Madrid':'Espagne',
         'Moscou':'Russie'
         }
+'Paris' in ville_nom_pays
+'Espagne' in list(ville_nom_pays.values())
 to_strings(ville_nom_pays)
 
 #Question 10
-ville_pays = {
-        'Paris':False, 
-        'Berlin':False, 
-        'Madrid':False,
-        'Moscou':True
-        }
+class Pays:
+    def __init__(self, nom, visa):
+        self.nom = nom
+        self.visa = visa
+
+
+italie = Pays('Italie', False)
+italie.visa
+italie.nom
+Russie = Pays('Russie',True)
+Allemagne = Pays('Allemagne',False)
+Espagne = Pays('Espagne',False)
+France = Pays('France',False)
+ville_pays = {'Paris':France,'Berlin':Allemagne,'Madrid':Espagne,'Moscou':Russie}
+ville_pays['Moscou'].visa
+ville_pays['Berlin'].visa
+
+
+
+if __name__ == "__main__":
+    import doctest
+    if True:
+        doctest.testmod(verbose=True, optionflags=512)
+    else:
+        doctest.testmod(verbose=True)
+
