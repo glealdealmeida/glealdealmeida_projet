@@ -27,7 +27,7 @@ def pairs(l):
 pairs([1,2,3])
  
 """
-    Question 3 : Création de fonction
+    Question 3 : Création de fonction 
     Créer une fonction 'ajout4' qui prend en paramètre une liste et
     renvoie une nouvelle liste avec l'entier 4 ajouté à la fin.
     Vous ne devez pas modifier la liste de départ
