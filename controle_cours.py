@@ -1,5 +1,5 @@
 """
-Controle de connaissances Guillaume LEAL DE ALMEIDA Groupe 27
+Controle de connaissances Guillaume LEAL DE ALMEIDA Groupe 27 
 Tout est à faire en pur python respectez bien le nommage des variables
 
     Question 1 : Fonction
